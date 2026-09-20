@@ -1,0 +1,13 @@
+---
+title: Test actualité
+date: 2026-09-20
+categorie: vie
+auteur: Figaro le chat rigolo
+evenement_date: ""
+evenement_lieu: Mon arbre à chat
+image: /assets/uploads/actualites/capture-d-ecran-2025-06-07-200237.png
+image_alt: Mon chateau dans Minecraft
+resume: zorblu zorblu
+exemple: false
+---
+MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU MIAOU
