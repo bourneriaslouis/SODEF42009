@@ -304,6 +304,8 @@ h3 { font-size: 1.35rem; }
 @media (max-width: 760px) { .encart-ress .enveloppe { grid-template-columns: 1fr; } .encart-ress .sigle-ress { max-width: 15rem; order: -1; } }
 
 /* ---------- Agenda ---------- */
+.agenda h3 a { color: inherit; text-decoration: none; }
+.agenda li:hover h3 a { text-decoration: underline; text-decoration-thickness: 1px; }
 .agenda { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
 .agenda li {
   display: grid; grid-template-columns: 6.5rem minmax(0, 1fr); gap: 1.25rem; align-items: center;
