@@ -1,9 +1,7 @@
-# Agenda de l'accueil — modifiable depuis l'interface de rédaction (« Accueil › Agenda »).
-# Les rendez-vous passés disparaissent automatiquement de la page.
 evenements:
   - date: 2026-10-14
-    titre: "[À compléter : intitulé]"
-    detail: "[À compléter : intervenants, lieu, horaire]"
+    titre: Conférence du Général Schill
+    detail: XXXXi
     lien: ""
   - date: 2026-11-20
     titre: "[À compléter : intitulé]"
