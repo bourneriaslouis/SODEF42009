@@ -95,19 +95,6 @@ nav: accueil
   </div>
 </section>
 
-<section class="section">
-  <div class="enveloppe pile--large">
-    <div class="pile revele">
-      <p class="surtitre">Agenda</p>
-      <h2>Prochains rendez-vous</h2>
-    </div>
-    <ol class="agenda">
-      {%- assign agenda_data = site.data.agenda -%}
-{%- if agenda_data and agenda_data.evenements -%}
-{%- assign evenements = agenda_data.evenements | sort: "date" -%}
-{%- else -%}
-{%- assign evenements = "" | split: "," -%}
-{%- endif -%}
 <section class="section" id="agenda"{% if evenements.size == 0 %} hidden{% endif %}>
   <div class="enveloppe pile--large">
     <div class="pile revele">
