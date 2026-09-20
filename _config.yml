@@ -1,12 +1,18 @@
 # Sorbonne Défense — configuration Jekyll (GitHub Pages)
 title: Sorbonne Défense
 lang: fr
-url: "https://sorbonnedefense.fr"   # adresse définitive du site
-baseurl: ""                          # laisser vide avec le nom de domaine
+# --- Adresse du site -------------------------------------------------------
+# Phase de test (dépôt « SODEF42009 » publié à bourneriaslouis.github.io/SODEF42009/) :
+url: "https://bourneriaslouis.github.io"
+baseurl: "/SODEF42009"      # = nom exact du dépôt, précédé de « / » (majuscules comprises)
+# Mise en service sur le domaine : remplacer les deux lignes ci-dessus par
+#   url: "https://sorbonnedefense.fr"
+#   baseurl: ""
+# ---------------------------------------------------------------------------
 timezone: Europe/Paris
 markdown: kramdown
 future: true        # une actualité datée du jour s'affiche même avant l'heure de publication
-
+ 
 collections:
   actualites:
     output: true
@@ -16,7 +22,7 @@ collections:
     permalink: /ress/articles/:name/
   ress_breves:            # RESS : brèves, affichées en entier sur ress-breves.html
     output: false
-
+ 
 defaults:
   - scope: { path: "", type: actualites }
     values: { layout: actualite, nav: actualites }
@@ -24,10 +30,11 @@ defaults:
     values: { layout: ress-article, nav: ress }
   - scope: { path: "" }
     values: { layout: default }
-
+ 
 exclude:
   - README.md
   - GUIDE-*.md
   - MISE-A-JOUR-*.md
   - Gemfile
   - Gemfile.lock
+ 
