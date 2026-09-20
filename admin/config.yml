@@ -27,6 +27,49 @@ public_folder: /assets/uploads/actualites
 
 collections:
 
+  # --- Accueil : agenda ---
+  - name: accueil
+    label: Accueil
+    label_singular: Réglage
+    editor:
+      preview: false
+    description: Contenus de la page d'accueil modifiables directement.
+    files:
+    - name: agenda
+      label: Agenda
+      file: _data/agenda.yml
+      description: Rendez-vous annoncés sur la page d'accueil, sous « Prochains rendez-vous ». Les quatre prochains sont affichés ; les rendez-vous passés disparaissent d'eux-mêmes.
+      fields:
+      - label: Rendez-vous
+        name: evenements
+        widget: list
+        label_singular: rendez-vous
+        summary: '{{fields.date | date(''DD/MM/YYYY'')}} — {{fields.titre}}'
+        fields:
+        - label: Date
+          name: date
+          widget: datetime
+          date_format: DD/MM/YYYY
+          time_format: false
+          format: YYYY-MM-DD
+          default: '{{now}}'
+          hint: Date du rendez-vous. L'ordre d'affichage est chronologique.
+        - label: Intitulé
+          name: titre
+          widget: string
+        - label: Précisions
+          name: detail
+          widget: string
+          required: false
+          default: ''
+          hint: 'Intervenants, lieu, horaire. Exemple : « Amphithéâtre Richelieu, Sorbonne — 18 h 30 ».'
+        - label: Lien
+          name: lien
+          widget: string
+          required: false
+          default: ''
+          hint: 'Facultatif : adresse de l''actualité correspondante (ex. /actualites/conference-rentree/) ou adresse complète commençant par https://'
+          
   # --- Actualités ---
   - name: actualites
     label: Actualités
