@@ -1,0 +1,14 @@
+<header class="entete entete-revue">
+  <div class="enveloppe">
+    <a class="marque-revue" href="{{ '/ress.html' | relative_url }}"><img src="{{ '/assets/ress/ress-sigle-simplifie.svg' | relative_url }}" alt="RESS — Revue d’Études Stratégiques de la Sorbonne, accueil de la revue" width="131" height="50"></a>
+    <nav class="nav-revue" aria-label="Navigation de la revue">
+      <ul>
+        <li><a href="{{ '/ress-a-propos.html' | relative_url }}"{% if page.ress_rubrique == "a-propos" %} aria-current="page"{% endif %}>À propos</a></li>
+        <li><a href="{{ '/ress-articles.html' | relative_url }}"{% if page.ress_rubrique == "articles" or page.collection == "ress_articles" %} aria-current="page"{% endif %}>Articles</a></li>
+        <li><a href="{{ '/ress-numeros.html' | relative_url }}"{% if page.ress_rubrique == "numeros" %} aria-current="page"{% endif %}>Numéros papier</a></li>
+        <li><a href="{{ '/ress-contribuer.html' | relative_url }}"{% if page.ress_rubrique == "contribuer" %} aria-current="page"{% endif %}>Contribuer</a></li>
+      </ul>
+    </nav>
+    <a class="retour-sd" href="{{ '/' | relative_url }}"><img src="{{ '/assets/logo.svg' | relative_url }}" alt="" width="92" height="100"><span><span class="fleche" aria-hidden="true">←</span> Sorbonne Défense</span></a>
+  </div>
+</header>

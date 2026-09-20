@@ -1,0 +1,448 @@
+# Interface de rédaction Sorbonne Défense (Decap CMS)
+# ----------------------------------------------------------------------------
+# BLOC « backend » CI-DESSOUS : à remplacer par celui que fournit DecapBridge
+# (tableau de bord DecapBridge > votre site > config.yml). Ne rien modifier d'autre.
+backend:
+  name: git-gateway
+  repo: A-REMPLACER/A-REMPLACER          # compte-github/nom-du-depot
+  branch: main
+  identity_url: A-REMPLACER              # fourni par DecapBridge
+  gateway_url: A-REMPLACER               # fourni par DecapBridge
+# ----------------------------------------------------------------------------
+
+locale: fr
+site_url: https://sorbonnedefense.fr
+display_url: https://sorbonnedefense.fr
+logo_url: /assets/logo.svg
+
+# Adresse des pages : sans accents ni caractères spéciaux
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: '-'
+
+# Images et documents déposés depuis l'interface (actualités ; la RESS a son propre dossier)
+media_folder: assets/uploads/actualites
+public_folder: /assets/uploads/actualites
+
+collections:
+
+  # --- Actualités ---
+  - name: actualites
+    label: Actualités
+    label_singular: Actualité
+    description: Chaque actualité a sa propre page et apparaît sur la page Actualités. Les trois plus récentes s'affichent sur l'accueil. La mise en ligne prend une à deux minutes.
+    folder: _actualites
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    identifier_field: title
+    summary: '{{date | date(''DD/MM/YYYY'')}} — {{title}}'
+    sortable_fields:
+    - date
+    - title
+    - categorie
+    view_filters:
+    - label: Conférence
+      field: categorie
+      pattern: conference
+    - label: Visite
+      field: categorie
+      pattern: visite
+    - label: Partenariat
+      field: categorie
+      pattern: partenariat
+    - label: Vie de l’association
+      field: categorie
+      pattern: vie
+    fields:
+    - label: Titre
+      name: title
+      widget: string
+    - label: Date de publication
+      name: date
+      widget: datetime
+      date_format: DD/MM/YYYY
+      time_format: false
+      format: YYYY-MM-DD
+      default: '{{now}}'
+      hint: Détermine l'ordre d'affichage (la plus récente en premier).
+    - label: Catégorie
+      name: categorie
+      widget: select
+      options:
+      - label: Conférence
+        value: conference
+      - label: Visite
+        value: visite
+      - label: Partenariat
+        value: partenariat
+      - label: Vie de l’association
+        value: vie
+    - label: Auteur
+      name: auteur
+      widget: string
+      required: false
+    - label: Date et heure de l'événement
+      name: evenement_date
+      widget: datetime
+      required: false
+      default: ''
+      date_format: DD/MM/YYYY
+      time_format: HH:mm
+      format: YYYY-MM-DD HH:mm
+      hint: Pour une conférence ou une visite. Laisser vide sinon. L'heure 00:00 n'est pas affichée.
+    - label: Lieu de l'événement
+      name: evenement_lieu
+      widget: string
+      required: false
+    - label: Image
+      name: image
+      widget: image
+      required: false
+      choose_url: false
+      hint: Format paysage de préférence, JPG ou PNG, moins de 1 Mo. Vérifier les droits sur la photo.
+    - label: Description de l'image
+      name: image_alt
+      widget: string
+      required: false
+      hint: Une phrase décrivant l'image, lue par les logiciels d'accessibilité (ex. « Le général X à la tribune de l'amphithéâtre Richelieu »).
+    - label: Résumé
+      name: resume
+      widget: text
+      hint: Deux ou trois lignes. Affiché sur les cartes de l'accueil et de la page Actualités, et lors des partages sur les réseaux sociaux.
+    - label: Texte
+      name: body
+      widget: markdown
+      buttons:
+      - bold
+      - italic
+      - link
+      - heading-two
+      - heading-three
+      - quote
+      - bulleted-list
+      - numbered-list
+      editor_components:
+      - image
+      modes:
+      - rich_text
+      - raw
+    - label: Pièce jointe (PDF)
+      name: piece_jointe
+      widget: file
+      required: false
+      choose_url: false
+    - label: Intitulé du bouton de téléchargement
+      name: piece_jointe_titre
+      widget: string
+      required: false
+      hint: 'Par exemple « Programme de la conférence (PDF) ». Par défaut : « Télécharger le document ».'
+    - label: Exemple
+      name: exemple
+      widget: hidden
+      default: false
+
+  # --- RESS : articles (publication par le comité, case « Publié sur le site ») ---
+  - name: ress_articles
+    label: RESS — Articles
+    label_singular: Article
+    description: Articles de la revue. Un article n'apparaît sur le site que lorsque la case « Publié sur le site » est cochée, après relecture par le comité. Chaque article publié a sa propre page ; les trois plus récents figurent sur l'accueil de la revue. La mise en ligne prend une à deux minutes.
+    folder: _ress_articles
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    media_folder: /assets/uploads/ress
+    public_folder: /assets/uploads/ress
+    identifier_field: title
+    summary: '{{etat}} · {{date | date(''DD/MM/YYYY'')}} — {{title}}'
+    sortable_fields:
+    - date
+    - title
+    - etat
+    view_filters:
+    - label: Brouillons
+      field: etat
+      pattern: Brouillon
+    - label: En relecture
+      field: etat
+      pattern: En relecture
+    - label: Prêts à publier
+      field: etat
+      pattern: Prêt à publier
+    - label: Publiés sur le site
+      field: published
+      pattern: true
+    fields:
+    - label: Titre
+      name: title
+      widget: string
+    - label: Auteurs
+      name: auteurs
+      widget: list
+      min: 1
+      label_singular: auteur
+      summary: '{{fields.nom}}'
+      fields:
+      - label: Nom complet
+        name: nom
+        widget: string
+      - label: Qualité
+        name: qualite
+        widget: string
+        required: false
+        hint: Par exemple « Doctorant en science politique, Université Paris 1 ».
+    - label: Date de publication
+      name: date
+      widget: datetime
+      date_format: DD/MM/YYYY
+      time_format: false
+      format: YYYY-MM-DD
+      default: '{{now}}'
+      required: true
+      hint: Détermine l'ordre d'affichage (le plus récent en premier).
+    - label: Numéro papier
+      name: numero
+      widget: relation
+      collection: ress_reglages
+      file: numeros
+      value_field: numeros.*.id
+      search_fields:
+      - numeros.*.romain
+      - numeros.*.titre
+      display_fields:
+      - numeros.*.romain
+      required: false
+      hint: Laisser vide pour un article publié en ligne hors numéro. Les numéros se créent dans « RESS — Réglages ».
+    - label: Position dans le numéro
+      name: ordre
+      widget: number
+      value_type: int
+      min: 1
+      default: 1
+      hint: Ordre d'affichage dans le sommaire du numéro (1 = premier).
+    - label: Rubrique
+      name: rubrique
+      widget: relation
+      collection: ress_reglages
+      file: rubriques
+      value_field: rubriques.*.id
+      search_fields:
+      - rubriques.*.nom
+      display_fields:
+      - rubriques.*.nom
+      hint: La liste des rubriques se modifie dans « RESS — Réglages ».
+    - label: Résumé
+      name: resume
+      widget: text
+      hint: Cinq à dix lignes. Affiché en tête de l'article, dans les listes et lors des partages sur les réseaux sociaux.
+    - label: Mots-clés
+      name: mots_cles
+      widget: list
+      required: false
+      default: []
+      hint: Séparés par des virgules.
+    - label: Image
+      name: image
+      widget: image
+      required: false
+      choose_url: false
+      hint: Facultative. JPG ou PNG, moins de 1 Mo. Vérifier les droits.
+    - label: Description de l'image
+      name: image_alt
+      widget: string
+      required: false
+      hint: Une phrase décrivant l'image, lue par les logiciels d'accessibilité.
+    - label: Texte
+      name: body
+      widget: markdown
+      buttons:
+      - bold
+      - italic
+      - link
+      - heading-two
+      - heading-three
+      - quote
+      - bulleted-list
+      - numbered-list
+      editor_components:
+      - image
+      modes:
+      - rich_text
+      - raw
+      hint: 'Notes de bas de page : écrire [^1] à l''endroit de l''appel, puis en fin de texte, sur une ligne à part : [^1]: texte de la note. (mode « Markdown »)'
+    - label: Article en PDF
+      name: pdf
+      widget: file
+      required: false
+      choose_url: false
+      hint: 'Facultatif : version mise en page de l''article.'
+    - label: État
+      name: etat
+      widget: select
+      default: Brouillon
+      options:
+      - Brouillon
+      - En relecture
+      - Prêt à publier
+      - Publié
+      hint: 'Suivi interne de la relecture. N''a pas d''effet sur le site : seule la case ci-dessous publie l''article.'
+    - label: Publié sur le site
+      name: published
+      widget: boolean
+      default: false
+      hint: Réservé au comité de rédaction, après relecture. Décocher retire l'article du site.
+    - label: Exemple
+      name: exemple
+      widget: hidden
+      default: false
+
+  # --- RESS : brèves (publication directe) ---
+  - name: ress_breves
+    label: RESS — Brèves
+    label_singular: Brève
+    description: Brèves de la revue, publiées directement. Elles se lisent en entier sur la page Brèves ; les trois plus récentes figurent sur l'accueil de la revue. La mise en ligne prend une à deux minutes.
+    folder: _ress_breves
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: '{{slug}}'
+    media_folder: /assets/uploads/ress
+    public_folder: /assets/uploads/ress
+    identifier_field: title
+    summary: '{{date | date(''DD/MM/YYYY'')}} — {{title}}'
+    sortable_fields:
+    - date
+    - title
+    fields:
+    - label: Titre
+      name: title
+      widget: string
+    - label: Date de publication
+      name: date
+      widget: datetime
+      date_format: DD/MM/YYYY
+      time_format: false
+      format: YYYY-MM-DD
+      default: '{{now}}'
+      required: true
+      hint: Détermine l'ordre d'affichage (la plus récente en premier).
+    - label: Auteur
+      name: auteur
+      widget: string
+      required: false
+    - label: Rubrique
+      name: rubrique
+      widget: relation
+      collection: ress_reglages
+      file: rubriques
+      value_field: rubriques.*.id
+      search_fields:
+      - rubriques.*.nom
+      display_fields:
+      - rubriques.*.nom
+      hint: La liste des rubriques se modifie dans « RESS — Réglages ».
+    - label: Texte
+      name: body
+      widget: markdown
+      buttons:
+      - bold
+      - italic
+      - link
+      - bulleted-list
+      editor_components: []
+      modes:
+      - rich_text
+      - raw
+      hint: 1 500 signes environ au maximum [à valider par le comité].
+    - label: Lien vers la source
+      name: source_url
+      widget: string
+      required: false
+      hint: Adresse complète, commençant par https://
+    - label: Intitulé du lien
+      name: source_titre
+      widget: string
+      required: false
+      hint: 'Par exemple « Communiqué du ministère des Armées ». Par défaut : « Source ».'
+    - label: Exemple
+      name: exemple
+      widget: hidden
+      default: false
+
+  # --- RESS : numéros papier et rubriques ---
+  - name: ress_reglages
+    label: RESS — Réglages
+    label_singular: Réglage
+    editor:
+      preview: false
+    description: Numéros papier de la revue et liste des rubriques.
+    files:
+    - name: numeros
+      label: Numéros papier
+      file: _data/ress_numeros.yml
+      fields:
+      - label: Numéros
+        name: numeros
+        widget: list
+        label_singular: numéro
+        summary: N° {{fields.romain}} {{fields.titre}}
+        hint: Du plus ancien au plus récent. Le dernier numéro paru est affiché comme « numéro en cours » sur l'accueil de la revue.
+        fields:
+        - label: Identifiant
+          name: id
+          widget: string
+          hint: Chiffre du numéro (1, 2, 3…). Ne plus le modifier une fois des articles rattachés.
+        - label: Numéro en chiffres romains
+          name: romain
+          widget: string
+          hint: I, II, III…
+        - label: Titre du numéro
+          name: titre
+          widget: string
+          required: false
+          default: ''
+        - label: Date de parution
+          name: date_parution
+          widget: datetime
+          date_format: DD/MM/YYYY
+          time_format: false
+          format: YYYY-MM-DD
+          default: ''
+          required: false
+          hint: Date de parution, ou date prévue si le numéro n'est pas paru.
+        - label: Numéro complet (PDF)
+          name: pdf
+          widget: file
+          required: false
+          default: ''
+          choose_url: false
+          media_folder: /assets/uploads/ress
+          public_folder: /assets/uploads/ress
+        - label: Paru
+          name: parution
+          widget: boolean
+          default: false
+          hint: 'Décoché : le numéro est annoncé « à paraître ».'
+    - name: rubriques
+      label: Rubriques
+      file: _data/ress_rubriques.yml
+      fields:
+      - label: Rubriques
+        name: rubriques
+        widget: list
+        label_singular: rubrique
+        summary: '{{fields.nom}}'
+        fields:
+        - label: Identifiant
+          name: id
+          widget: string
+          hint: En minuscules, sans accent ni espace (ex. « cyber »). Ne plus le modifier une fois utilisé.
+        - label: Nom affiché
+          name: nom
+          widget: string

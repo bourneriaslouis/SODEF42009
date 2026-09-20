@@ -1,0 +1,18 @@
+{%- assign a = include.article -%}
+{%- assign rub = site.data.ress_rubriques.rubriques | where: "id", a.rubrique | first -%}
+{%- assign num = site.data.ress_numeros.numeros | where: "id", a.numero | first -%}
+<article class="fiche-article revele" data-rubrique="{{ a.rubrique }}" data-numero="{% if num %}{{ num.id }}{% else %}hors{% endif %}">
+  <p class="meta-ress">
+    {%- if rub %}<span class="rubrique">{{ rub.nom }}</span>{% endif -%}
+    <span class="numero-ress">{% if num %}N° {{ num.romain }}{% else %}Hors numéro{% endif %}</span>
+    <time datetime="{{ a.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=a.date %}</time>
+    {%- if a.exemple %}<span class="etiquette-exemple">exemple</span>{% endif -%}
+  </p>
+  <h3><a class="lien-article" href="{{ a.url | relative_url }}">{{ a.title }}</a></h3>
+  {%- if a.auteurs and a.auteurs.size > 0 %}
+  <p class="auteurs">{% include ress-auteurs.html auteurs=a.auteurs %}</p>
+  {%- endif %}
+  {%- if include.resume and a.resume %}
+  <p class="resume">{{ a.resume }}</p>
+  {%- endif %}
+</article>

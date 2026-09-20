@@ -1,0 +1,51 @@
+---
+layout: ress
+title: "À propos"
+description: "La Revue d’Études Stratégiques de la Sorbonne (RESS) : ligne éditoriale, rubriques et comité de rédaction."
+nav: ress
+ress_rubrique: a-propos
+---
+<section class="ouverture-ress">
+  <div class="enveloppe">
+    <p class="surtitre">La revue</p>
+    <h1>À propos</h1>
+    <p class="chapeau">La RESS accueille les travaux d’étudiants, de doctorants et de chercheurs sur la stratégie, la défense et la sécurité. <mark class="a-completer">[À compléter : à ajuster]</mark></p>
+  </div>
+</section>
+
+<section class="section" id="ligne-editoriale">
+  <div class="enveloppe colonne pile revele">
+    <p class="surtitre">Ligne éditoriale</p>
+    <h2>Champ de la revue</h2>
+    <p><mark class="a-completer">[À compléter : champ couvert, disciplines, format des articles, support papier ou numérique]</mark></p>
+    <h3>Rubriques</h3>
+    <p>{% for r in site.data.ress_rubriques.rubriques %}{{ r.nom }}{% unless forloop.last %} · {% endunless %}{% endfor %} <mark class="a-completer">[liste provisoire, à valider]</mark></p>
+    <h3>Formats</h3>
+    <p>Articles, relus par le comité de rédaction avant publication, et brèves : points d’actualité stratégique en quelques lignes (<a href="{{ '/ress-breves.html' | relative_url }}">toutes les brèves</a>).</p>
+  </div>
+</section>
+
+<section class="section section--papier" id="comite">
+  <div class="enveloppe colonne pile revele">
+    <p class="surtitre">Rédaction</p>
+    <h2>Comité de rédaction</h2>
+    <dl class="fiche">
+      <dt>Directeur de la publication</dt><dd>Président XXX</dd>
+      <dt>Rédacteur en chef</dt><dd><mark class="a-completer">[À compléter : nom]</mark></dd>
+      <dt>Comité</dt><dd><mark class="a-completer">[À compléter : noms]</mark></dd>
+    </dl>
+  </div>
+</section>
+
+<section class="section" id="edition">
+  <div class="enveloppe colonne pile revele">
+    <p class="surtitre">Édition</p>
+    <h2>Informations</h2>
+    <dl class="fiche">
+      <dt>Éditeur</dt><dd><a href="{{ '/a-propos.html' | relative_url }}">Sorbonne Défense</a>, association déclarée régie par la loi du 1<sup>er</sup> juillet 1901 · RNA W751251962</dd>
+      <dt>Périodicité</dt><dd><mark class="a-completer">[À compléter]</mark></dd>
+      <dt>ISSN</dt><dd><mark class="a-completer">[À compléter : le cas échéant]</mark></dd>
+      <dt>Droits</dt><dd>Les articles demeurent la propriété de leurs auteurs. <mark class="a-completer">[À compléter : licence de diffusion, le cas échéant]</mark></dd>
+    </dl>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+# Numéros de la RESS — modifiables depuis l'interface de rédaction (« RESS — Réglages › Numéros »).
+# id : identifiant utilisé par les articles (ne pas modifier après publication).
+numeros:
+  - id: "1"
+    romain: "I"
+    titre: ""
+    date_parution: ""
+    pdf: ""
+    parution: true
+  - id: "2"
+    romain: "II"
+    titre: ""
+    date_parution: ""
+    pdf: ""
+    parution: false

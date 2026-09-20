@@ -1,0 +1,15 @@
+{%- comment -%}
+  Date en français (« 1er octobre 2026 », « 14 octobre 2026, 18 h 30 »).
+  Paramètres : date ; heure=true pour ajouter l'heure lorsqu'elle n'est pas minuit.
+{%- endcomment -%}
+{%- assign mois = "janvier,février,mars,avril,mai,juin,juillet,août,septembre,octobre,novembre,décembre" | split: "," -%}
+{%- assign j = include.date | date: "%-d" -%}
+{%- assign m = include.date | date: "%-m" | minus: 1 -%}
+{%- if j == "1" -%}1<sup>er</sup>{%- else -%}{{ j }}{%- endif %} {{ mois[m] }} {{ include.date | date: "%Y" }}
+{%- if include.heure -%}
+  {%- assign h = include.date | date: "%-H" -%}
+  {%- assign mn = include.date | date: "%M" -%}
+  {%- unless h == "0" and mn == "00" -%}
+    , {{ h }} h{% if mn != "00" %} {{ mn }}{% endif %}
+  {%- endunless -%}
+{%- endif -%}

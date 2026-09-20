@@ -1,0 +1,70 @@
+---
+layout: ress
+title: "RESS — Revue d’Études Stratégiques de la Sorbonne"
+description: "Revue d’Études Stratégiques de la Sorbonne (RESS), revue éditée par l’association Sorbonne Défense."
+nav: ress
+ress_rubrique: accueil
+---
+{%- assign articles = site.ress_articles | sort: "date" | reverse -%}
+{%- assign breves = site.ress_breves | sort: "date" | reverse -%}
+{%- assign parus = site.data.ress_numeros.numeros | where: "parution", true -%}
+{%- assign courant = parus | last -%}
+<section class="couverture" id="presentation">
+  <div class="enveloppe">
+    <h1 class="couverture-titre"><img src="{{ '/assets/ress/ress-titre.svg' | relative_url }}" alt="Revue d’Études Stratégiques de la Sorbonne" width="1139" height="500"></h1>
+    <div class="couverture-texte">
+      <p class="surtitre">Revue éditée par <a href="{{ '/' | relative_url }}">Sorbonne Défense</a></p>
+      <p class="chapeau">La RESS accueille les travaux d’étudiants, de doctorants et de chercheurs sur la stratégie, la défense et la sécurité. <mark class="a-completer">[À compléter : à ajuster]</mark></p>
+      <dl class="colophon">
+        <dt>Numéro en cours</dt><dd>{% if courant %}<a href="{{ '/ress-numeros.html' | relative_url }}#numero-{{ courant.id }}">N° {{ courant.romain }}</a>{% if courant.titre != "" %} — {{ courant.titre }}{% endif %}{% else %}—{% endif %}</dd>
+        <dt>Périodicité</dt><dd><mark class="a-completer">[À compléter]</mark></dd>
+        <dt>ISSN</dt><dd><mark class="a-completer">[À compléter : le cas échéant]</mark></dd>
+      </dl>
+      <p class="actions">
+        <a class="bouton" href="{{ '/ress-articles.html' | relative_url }}">Lire les articles</a>
+        <a class="bouton bouton--contour" href="{{ '/ress-contribuer.html' | relative_url }}">Proposer un article</a>
+      </p>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="a-la-une">
+  <div class="enveloppe une-ress">
+    <div class="pile--large">
+      <div class="tete-section revele">
+        <div class="pile"><p class="surtitre">Derniers articles</p><h2>Articles</h2></div>
+        <a class="lien-fleche" href="{{ '/ress-articles.html' | relative_url }}">Tous les articles</a>
+      </div>
+      <div class="liste-articles">
+      {%- for a in articles limit: 3 %}
+        {% include ress-carte-article.html article=a resume="oui" %}
+      {%- else %}
+        <p>Aucun article publié pour l’instant.</p>
+      {%- endfor %}
+      </div>
+    </div>
+    <aside class="colonne-breves pile--large" aria-labelledby="titre-breves">
+      <div class="tete-section revele">
+        <div class="pile"><p class="surtitre">En bref</p><h2 id="titre-breves">Brèves</h2></div>
+        <a class="lien-fleche" href="{{ '/ress-breves.html' | relative_url }}">Toutes les brèves</a>
+      </div>
+      <div class="liste-breves liste-breves--courte">
+      {%- for b in breves limit: 3 %}
+        {% include ress-breve.html breve=b lien="oui" %}
+      {%- else %}
+        <p>Aucune brève publiée pour l’instant.</p>
+      {%- endfor %}
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="section section--papier">
+  <div class="enveloppe">
+    <ul class="entrees-ress">
+      <li class="revele"><a href="{{ '/ress-a-propos.html' | relative_url }}"><span class="surtitre">La revue</span><span class="intitule">À propos</span><span class="detail">Ligne éditoriale, rubriques, comité de rédaction.</span></a></li>
+      <li class="revele"><a href="{{ '/ress-numeros.html' | relative_url }}"><span class="surtitre">Sommaire</span><span class="intitule">Numéros papier</span><span class="detail">Les numéros imprimés et leurs articles.</span></a></li>
+      <li class="revele"><a href="{{ '/ress-contribuer.html' | relative_url }}"><span class="surtitre">Appel à contributions</span><span class="intitule">Contribuer</span><span class="detail">Proposer un article à la revue.</span></a></li>
+    </ul>
+  </div>
+</section>

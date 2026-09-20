@@ -1,0 +1,41 @@
+---
+layout: ress
+title: "Brèves"
+description: "Brèves de la Revue d’Études Stratégiques de la Sorbonne (RESS)."
+nav: ress
+ress_rubrique: breves
+---
+{%- assign breves = site.ress_breves | sort: "date" | reverse -%}
+{%- assign exemples = breves | where: "exemple", true -%}
+<section class="ouverture-ress">
+  <div class="enveloppe">
+    <p class="surtitre">La revue</p>
+    <h1>Brèves</h1>
+    <p class="chapeau">Points d’actualité stratégique, en quelques lignes.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="enveloppe colonne pile--large">
+    {%- if exemples.size > 0 %}
+    <p class="avertissement"><strong>Contenus provisoires.</strong> Les brèves marquées « exemple » sont à remplacer ou supprimer depuis l’interface de rédaction.</p>
+    {%- endif %}
+    <div class="filtres-ress" data-liste="breves">
+      <div class="groupe-filtre" role="group" aria-label="Filtrer par rubrique">
+        <button class="filtre-ress" type="button" data-cle="rubrique" data-valeur="toutes" aria-pressed="true">Toutes</button>
+        {%- for r in site.data.ress_rubriques.rubriques %}
+        <button class="filtre-ress" type="button" data-cle="rubrique" data-valeur="{{ r.id }}" aria-pressed="false">{{ r.nom }}</button>
+        {%- endfor %}
+      </div>
+      <p class="compte-ress" aria-live="polite">{{ breves.size }} brève{% if breves.size > 1 %}s{% endif %}</p>
+    </div>
+    <div class="liste-breves" data-elements>
+    {%- for b in breves %}
+      {% include ress-breve.html breve=b %}
+    {%- else %}
+      <p>Aucune brève publiée pour l’instant.</p>
+    {%- endfor %}
+    </div>
+    <p class="aucun-resultat" hidden>Aucune brève ne correspond à ce choix.</p>
+  </div>
+</section>

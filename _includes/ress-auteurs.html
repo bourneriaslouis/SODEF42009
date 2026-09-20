@@ -1,0 +1,5 @@
+{%- comment -%} Liste des auteurs (paramètres : auteurs ; qualite, facultatif, affiche la qualité). {%- endcomment -%}
+{%- for au in include.auteurs -%}
+{%- unless forloop.first -%}{%- if forloop.last %} et {% else %}, {% endif -%}{%- endunless -%}
+<span class="auteur">{{ au.nom }}{%- if include.qualite and au.qualite and au.qualite != "" -%}<span class="qualite">, {{ au.qualite }}</span>{%- endif -%}</span>
+{%- endfor -%}

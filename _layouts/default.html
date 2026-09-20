@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{%- if page.collection == "actualites" %}
+{%- assign titre_onglet = page.title | append: " — Sorbonne Défense" %}
+{%- assign description = page.resume | strip_newlines %}
+{%- else %}
+{%- assign titre_onglet = page.title %}
+{%- assign description = page.description %}
+{%- endif %}
+<title>{{ titre_onglet }}</title>
+<meta name="description" content="{{ description | escape }}">
+<link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+<meta property="og:site_name" content="Sorbonne Défense">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:type" content="{% if page.collection == 'actualites' %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:description" content="{{ description | escape }}">
+<meta property="og:url" content="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+{%- if page.image and page.image != "" %}
+<meta property="og:image" content="{{ page.image | absolute_url }}">
+{%- else %}
+<meta property="og:image" content="{{ '/assets/apple-touch-icon.png' | absolute_url }}">
+{%- endif %}
+<link rel="icon" href="{{ '/favicon.ico' | relative_url }}" sizes="48x48">
+<link rel="icon" href="{{ '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ '/assets/apple-touch-icon.png' | relative_url }}">
+<link rel="preload" href="{{ '/assets/fonts/EBGaramond-500.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/assets/fonts/CharisSIL-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+</head>
+<body>
+<header class="entete">
+  <div class="enveloppe">
+    <a class="marque" href="{{ '/index.html' | relative_url }}">
+      <img src="{{ '/assets/logo.svg' | relative_url }}" alt="" width="92" height="100">
+      <span>Sorbonne Défense<small>Association étudiante · défense et sécurité</small></span>
+    </a>
+    <button class="bouton-menu" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+    <nav class="navigation" id="menu" aria-label="Navigation principale">
+      <ul>
+        <li><a href="{{ '/index.html' | relative_url }}"{% if page.nav == "accueil" %} aria-current="page"{% endif %}>Accueil</a></li>
+        <li><a href="{{ '/actualites.html' | relative_url }}"{% if page.nav == "actualites" %} aria-current="page"{% endif %}>Actualités</a></li>
+        <li><a href="{{ '/ress.html' | relative_url }}"{% if page.nav == "ress" %} aria-current="page"{% endif %}>RESS</a></li>
+        <li><a href="{{ '/a-propos.html' | relative_url }}"{% if page.nav == "a-propos" %} aria-current="page"{% endif %}>À propos</a></li>
+        <li><a href="{{ '/contact.html' | relative_url }}"{% if page.nav == "contact" %} aria-current="page"{% endif %}>Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<main id="contenu">
+{{ content }}
+</main>
+<footer class="pied">
+  <div class="enveloppe">
+    <div class="grille">
+      <div class="identite">
+        <p class="nom"><span class="cartouche-logo"><img src="{{ '/assets/logo.svg' | relative_url }}" alt="" width="92" height="100"></span>Sorbonne Défense</p>
+        <p>Association déclarée régie par la loi du 1<sup>er</sup> juillet 1901 · RNA W751251962</p>
+        <p>Siège : 1, rue Victor-Cousin, 75005 Paris</p>
+      </div>
+      <nav aria-label="Plan du site">
+        <h2>Le site</h2>
+        <ul>
+          <li><a href="{{ '/actualites.html' | relative_url }}">Actualités</a></li>
+          <li><a href="{{ '/ress.html' | relative_url }}">La RESS</a></li>
+          <li><a href="{{ '/a-propos.html' | relative_url }}">L’association</a></li>
+          <li><a href="{{ '/mentions-legales.html' | relative_url }}">Mentions légales</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:contact@sorbonnedefense.fr">contact@sorbonnedefense.fr</a></li>
+          <li><a href="https://www.helloasso.com/associations/sorbonne-defense">Adhérer sur HelloAsso</a></li>
+          <li><a href="{{ '/contact.html' | relative_url }}">Toutes les coordonnées</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="bas">
+      <p>© Sorbonne Défense</p>
+      <p><a href="{{ '/mentions-legales.html' | relative_url }}">Mentions légales</a></p>
+    </div>
+  </div>
+</footer>
+<script src="{{ '/assets/site.js' | relative_url }}"></script>
+</body>
+</html>

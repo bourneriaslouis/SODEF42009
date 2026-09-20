@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+{%- if page.url == "/ress.html" %}
+<title>RESS — Revue d’Études Stratégiques de la Sorbonne</title>
+{%- else %}
+<title>{{ page.title }} — RESS</title>
+{%- endif %}
+{%- assign ress_desc = page.description | default: page.resume | default: "Revue d’Études Stratégiques de la Sorbonne (RESS), revue éditée par l’association Sorbonne Défense." | strip_html | strip_newlines %}
+<meta name="description" content="{{ ress_desc | escape }}">
+<link rel="canonical" href="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+<meta property="og:site_name" content="RESS — Sorbonne Défense">
+<meta property="og:locale" content="fr_FR">
+<meta property="og:type" content="{% if page.collection == 'ress_articles' %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page.title | escape }}">
+<meta property="og:description" content="{{ ress_desc | escape }}">
+<meta property="og:url" content="{{ page.url | replace: 'index.html', '' | absolute_url }}">
+{%- if page.image and page.image != "" %}
+<meta property="og:image" content="{{ page.image | absolute_url }}">
+{%- else %}
+<meta property="og:image" content="{{ '/assets/ress/apple-touch-icon.png' | absolute_url }}">
+{%- endif %}
+{%- if page.collection == 'ress_articles' %}
+{%- for au in page.auteurs %}
+<meta name="citation_author" content="{{ au.nom | escape }}">
+{%- endfor %}
+<meta name="citation_title" content="{{ page.title | escape }}">
+<meta name="citation_journal_title" content="Revue d’Études Stratégiques de la Sorbonne">
+<meta name="citation_publisher" content="Sorbonne Défense">
+<meta name="citation_publication_date" content="{{ page.date | date: '%Y/%m/%d' }}">
+{%- endif %}
+<link rel="icon" href="{{ '/assets/ress/favicon.ico' | relative_url }}" sizes="48x48">
+<link rel="icon" href="{{ '/assets/ress/favicon.svg' | relative_url }}" type="image/svg+xml">
+<link rel="apple-touch-icon" href="{{ '/assets/ress/apple-touch-icon.png' | relative_url }}">
+<link rel="preload" href="{{ '/assets/fonts/Spectral-700.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/assets/fonts/EBGaramond-500.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ '/assets/fonts/CharisSIL-400.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ '/assets/style.css' | relative_url }}">
+<link rel="stylesheet" href="{{ '/assets/ress/ress.css' | relative_url }}">
+</head>
+<body>
+{% include ress-entete.html %}
+<main id="contenu" class="revue">
+{{ content }}
+</main>
+{% include ress-pied.html %}
+<script src="{{ '/assets/site.js' | relative_url }}"></script>
+<script src="{{ '/assets/ress/ress.js' | relative_url }}"></script>
+</body>
+</html>

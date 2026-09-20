@@ -1,0 +1,11 @@
+# Rubriques de la RESS (articles et brèves) — modifiables depuis l'interface de rédaction (« RESS — Réglages »).
+# id : identifiant utilisé par les articles et les brèves (ne pas modifier une fois utilisé).
+rubriques:
+  - id: strategie
+    nom: Stratégie
+  - id: defense
+    nom: Défense
+  - id: securite-interieure
+    nom: Sécurité intérieure
+  - id: relations-internationales
+    nom: Relations internationales

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Rédaction — Sorbonne Défense</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+</head>
+<body>
+  <!-- Interface de rédaction Decap CMS. La configuration se trouve dans admin/config.yml. -->
+  <script src="https://unpkg.com/decap-cms@^3.8.4/dist/decap-cms.js"></script>
+  <script>
+    // Aperçu dans l'interface : même feuille de style que le site.
+    CMS.registerPreviewStyle("../assets/style.css");
+  </script>
+  <script src="apercu.js"></script>
+  <!-- RESS : aperçu des articles et des brèves (charge aussi assets/ress/ress.css). -->
+  <script src="apercu-ress.js"></script>
+</body>
+</html>

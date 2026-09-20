@@ -1,0 +1,119 @@
+---
+title: "Sorbonne Défense"
+description: "Sorbonne Défense, association étudiante consacrée à la défense, à la sécurité intérieure et aux relations internationales."
+nav: accueil
+---
+<section class="une">
+  <div class="enveloppe">
+    <div class="texte">
+      <p class="embleme"><img src="assets/logo.svg" alt="Logo de Sorbonne Défense" width="92" height="100"><span class="surtitre">Association étudiante · Paris</span></p>
+      <h1>Sorbonne Défense</h1>
+      <div class="filet-double"></div>
+      <p class="chapeau"><strong>Défense, sécurité intérieure, relations internationales.</strong> L’association rapproche les étudiants et les professionnels du domaine, pour sortir ces questions d’une approche purement théorique.</p>
+      <p class="actions"><a class="bouton" href="actualites.html">Nos actualités</a><a class="bouton bouton--contour" href="https://www.helloasso.com/associations/sorbonne-defense">Adhérer</a></p>
+    </div>
+    <div class="cadre" role="img" aria-label="Emplacement photo"><span class="legende-cadre">Photo à venir</span></div>
+  </div>
+</section>
+
+<section class="section section--voile">
+  <div class="enveloppe pile--large">
+    <div class="tete-section revele">
+      <div class="pile">
+        <p class="surtitre">Objet de l’association</p>
+        <h2>Trois engagements</h2>
+      </div>
+      <a class="lien-fleche" href="a-propos.html">L’association</a>
+    </div>
+    <div class="volets">
+      <article class="volet revele">
+        <p class="numero">I</p>
+        <h3>Rendre accessibles</h3>
+        <p>Ouvrir aux étudiants les sujets de sécurité intérieure et de défense, dans le cadre institutionnel comme dans la société civile.</p>
+      </article>
+      <article class="volet revele">
+        <p class="numero">II</p>
+        <h3>Professionnaliser</h3>
+        <p>Organiser des échanges avec les acteurs du domaine pour dépasser l’approche théorique et préparer l’insertion professionnelle.</p>
+      </article>
+      <article class="volet revele">
+        <p class="numero">III</p>
+        <h3>Coopérer</h3>
+        <p>Soutenir des initiatives philanthropiques et collaborer avec les organisations engagées dans la défense.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="bleu graticule" aria-label="Chiffres clés">
+  <div class="enveloppe">
+    <div class="chiffres revele">
+      <div class="chiffre"><p class="valeur"><mark class="a-completer">[…]</mark></p><p class="intitule">membres</p></div>
+      <div class="chiffre"><p class="valeur"><mark class="a-completer">[…]</mark></p><p class="intitule">conférences organisées</p></div>
+      <div class="chiffre"><p class="valeur"><mark class="a-completer">[…]</mark></p><p class="intitule">numéros de la RESS</p></div>
+      <div class="chiffre"><p class="valeur"><mark class="a-completer">[…]</mark></p><p class="intitule">année de création</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="enveloppe pile--large">
+    <div class="tete-section revele">
+      <div class="pile">
+        <p class="surtitre">Vie de l’association</p>
+        <h2>Dernières actualités</h2>
+      </div>
+      <a class="lien-fleche" href="actualites.html">Toutes les actualités</a>
+    </div>
+    <div class="cartes">
+      {%- assign dernieres = site.actualites | sort: "date" | reverse %}
+      {%- for actu in dernieres limit: 3 %}
+      {%- assign cat = site.data.categories[actu.categorie] | default: actu.categorie %}
+      <a class="carte revele" href="{{ actu.url | relative_url }}">
+        {% include visuel-actu.html actu=actu %}
+        <div class="corps">
+          <p class="meta"><span class="categorie">{{ cat }}</span><time datetime="{{ actu.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=actu.date %}</time></p>
+          <h3>{{ actu.title }}</h3>
+          <p>{{ actu.resume }}</p>
+          <p class="suite">Lire</p>
+        </div>
+      </a>
+      {%- endfor %}
+    </div>
+  </div>
+</section>
+
+<section class="encart-ress section">
+  <div class="enveloppe">
+    <div class="pile revele">
+      <p class="surtitre">Revue éditée par l’association</p>
+      <h2>Revue d’Études Stratégiques de la Sorbonne</h2>
+      <p>La RESS publie les travaux d’étudiants et de chercheurs sur les questions stratégiques, de défense et de sécurité. <mark class="a-completer">[À compléter : présentation courte de la revue]</mark></p>
+      <p class="actions"><a class="bouton" href="ress.html">Découvrir la revue</a></p>
+    </div>
+    <a class="sigle-ress revele" href="ress.html" tabindex="-1" aria-hidden="true"><img src="assets/ress/ress-sigle-simplifie.svg" alt="" width="1313" height="500"></a>
+  </div>
+</section>
+
+<section class="section">
+  <div class="enveloppe pile--large">
+    <div class="pile revele">
+      <p class="surtitre">Agenda</p>
+      <h2>Prochains rendez-vous</h2>
+    </div>
+    <ol class="agenda">
+      <li class="revele"><p class="date"><span class="jour"><mark class="a-completer">[jj]</mark></span><span class="mois">mois</span></p><div><h3><mark class="a-completer">[À compléter : intitulé]</mark></h3><p><mark class="a-completer">[À compléter : intervenants, lieu, horaire]</mark></p></div></li>
+      <li class="revele"><p class="date"><span class="jour"><mark class="a-completer">[jj]</mark></span><span class="mois">mois</span></p><div><h3><mark class="a-completer">[À compléter : intitulé]</mark></h3><p><mark class="a-completer">[À compléter : intervenants, lieu, horaire]</mark></p></div></li>
+    </ol>
+  </div>
+</section>
+
+<section class="section section--voile">
+  <div class="enveloppe tete-section revele">
+    <div class="pile colonne">
+      <h2>Nous rejoindre</h2>
+      <p>L’association est ouverte aux étudiants de toutes disciplines intéressés par les questions de défense et de sécurité. <mark class="a-completer">[À compléter : conditions et montant de l’adhésion]</mark></p>
+    </div>
+    <p class="actions"><a class="bouton" href="https://www.helloasso.com/associations/sorbonne-defense">Adhérer</a><a class="bouton bouton--contour" href="contact.html">Nous écrire</a></p>
+  </div>
+</section>

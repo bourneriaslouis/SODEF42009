@@ -1,0 +1,52 @@
+---
+layout: default
+---
+{%- assign cat = site.data.categories[page.categorie] | default: page.categorie -%}
+{%- assign a_date = false -%}{%- if page.evenement_date and page.evenement_date != "" -%}{%- assign a_date = true -%}{%- endif -%}
+{%- assign a_lieu = false -%}{%- if page.evenement_lieu and page.evenement_lieu != "" -%}{%- assign a_lieu = true -%}{%- endif -%}
+<article>
+<section class="ouverture bleu">
+  <div class="enveloppe">
+    <p class="surtitre"><a href="{{ '/actualites.html' | relative_url }}">Actualités</a> · {{ cat }}</p>
+    <h1 class="titre-actu">{{ page.title }}</h1>
+    <p class="meta meta--bleu">Publié le <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=page.date %}</time>{% if page.auteur and page.auteur != "" %}<span aria-hidden="true">·</span><span>{{ page.auteur }}</span>{% endif %}</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="enveloppe article-actu">
+    {%- if page.exemple %}
+    <p class="avertissement"><strong>Contenu provisoire.</strong> Actualité d’exemple, à remplacer ou supprimer depuis l’interface de rédaction.</p>
+    {%- endif %}
+
+    {%- if a_date or a_lieu %}
+    <dl class="fiche fiche--evenement">
+      {%- if a_date %}
+      <dt>Date</dt>
+      <dd><time datetime="{{ page.evenement_date | date: '%Y-%m-%dT%H:%M' }}">{% include date-fr.html date=page.evenement_date heure=true %}</time></dd>
+      {%- endif %}
+      {%- if a_lieu %}
+      <dt>Lieu</dt>
+      <dd>{{ page.evenement_lieu }}</dd>
+      {%- endif %}
+    </dl>
+    {%- endif %}
+
+    {%- if page.image and page.image != "" %}
+    <figure class="illustration">
+      <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: '' | escape }}">
+    </figure>
+    {%- endif %}
+
+    <div class="prose">
+      {{ content }}
+    </div>
+
+    {%- if page.piece_jointe and page.piece_jointe != "" %}
+    <p class="actions"><a class="bouton bouton--document" href="{{ page.piece_jointe | relative_url }}" download>{{ page.piece_jointe_titre | default: "Télécharger le document" }}</a></p>
+    {%- endif %}
+
+    <p class="retour"><a class="lien-retour" href="{{ '/actualites.html' | relative_url }}">Toutes les actualités</a></p>
+  </div>
+</section>
+</article>

@@ -1,0 +1,17 @@
+{%- assign b = include.breve -%}
+{%- assign rub = site.data.ress_rubriques.rubriques | where: "id", b.rubrique | first -%}
+{%- assign bid = b.slug | default: b.id | split: "/" | last -%}
+<article class="breve revele" id="{{ bid }}" data-rubrique="{{ b.rubrique }}">
+  <p class="meta-ress">
+    {%- if rub %}<span class="rubrique">{{ rub.nom }}</span>{% endif -%}
+    <time datetime="{{ b.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=b.date %}</time>
+    {%- if b.auteur and b.auteur != "" %}<span>{{ b.auteur }}</span>{% endif -%}
+    {%- if b.exemple %}<span class="etiquette-exemple">exemple</span>{% endif -%}
+  </p>
+  <h3>{% if include.lien %}<a href="{{ '/ress-breves.html' | relative_url }}#{{ bid }}">{{ b.title }}</a>{% else %}{{ b.title }}{% endif %}</h3>
+  <div class="prose texte-breve">{{ b.content | markdownify }}</div>
+  <p class="pied-breve">
+    {%- if b.source_url and b.source_url != "" %}<a class="source" href="{{ b.source_url }}" rel="noopener">{{ b.source_titre | default: "Source" }}</a>{% endif -%}
+    {%- unless include.lien %}<a class="lien-breve" href="#{{ bid }}" data-copier>Lien vers cette brève</a>{% endunless -%}
+  </p>
+</article>

@@ -1,0 +1,47 @@
+---
+title: "Actualités — Sorbonne Défense"
+description: "Actualités de l’association Sorbonne Défense : conférences, visites, partenariats et vie de l’association."
+nav: actualites
+---
+{%- assign actus = site.actualites | sort: "date" | reverse -%}
+{%- assign exemples = actus | where: "exemple", true -%}
+<section class="ouverture bleu">
+  <div class="enveloppe">
+    <p class="surtitre">Vie de l’association</p>
+    <h1>Actualités</h1>
+    <p class="chapeau">Conférences, visites, partenariats et vie de l’association. Les travaux publiés par la revue figurent sur les pages de la <a href="ress.html">RESS</a>.</p>
+  </div>
+</section>
+
+<section class="section section--voile">
+  <div class="enveloppe pile--large">
+    {%- if exemples.size > 0 %}
+    <p class="avertissement"><strong>Contenus provisoires.</strong> Les actualités marquées « exemple » sont à remplacer ou supprimer depuis l’interface de rédaction.</p>
+    {%- endif %}
+    <div class="tete-section">
+      <div class="filtres" role="group" aria-label="Filtrer par catégorie">
+      <button class="filtre" type="button" data-filtre="toutes" aria-pressed="true">Toutes</button>
+      {%- for c in site.data.categories %}
+      <button class="filtre" type="button" data-filtre="{{ c[0] }}" aria-pressed="false">{{ c[1] }}</button>
+      {%- endfor %}
+      </div>
+      <p class="compte" aria-live="polite">{{ actus.size }} actualité{% if actus.size > 1 %}s{% endif %}</p>
+    </div>
+    <div class="fil">
+    {%- for actu in actus %}
+    {%- assign cat = site.data.categories[actu.categorie] | default: actu.categorie %}
+    <article class="actu revele{% if forloop.first %} actu--une{% endif %}" data-categorie="{{ actu.categorie }}">
+      {% include visuel-actu.html actu=actu %}
+      <div class="corps">
+        <p class="meta"><span class="categorie">{{ cat }}</span><time datetime="{{ actu.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=actu.date %}</time>{% if actu.evenement_lieu and actu.evenement_lieu != "" %}<span aria-hidden="true">·</span><span>{{ actu.evenement_lieu }}</span>{% endif %}{% if actu.exemple %}<span class="etiquette-exemple">exemple</span>{% endif %}</p>
+        <h2><a class="lien-actu" href="{{ actu.url | relative_url }}">{{ actu.title }}</a></h2>
+        <p>{{ actu.resume }}</p>
+        <p class="suite" aria-hidden="true">Lire l’actualité</p>
+      </div>
+    </article>
+    {%- else %}
+    <p>Aucune actualité pour le moment.</p>
+    {%- endfor %}
+    </div>
+  </div>
+</section>

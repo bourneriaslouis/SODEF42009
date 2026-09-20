@@ -1,0 +1,6 @@
+{%- comment -%} Image de l'actualité, ou cadre bleu neutre si aucune image. Paramètre : actu. {%- endcomment -%}
+{%- if include.actu.image and include.actu.image != "" -%}
+<div class="cadre"><img src="{{ include.actu.image | relative_url }}" alt="{{ include.actu.image_alt | default: '' | escape }}" loading="lazy"></div>
+{%- else -%}
+<div class="cadre" aria-hidden="true"><span class="legende-cadre">Sorbonne Défense</span></div>
+{%- endif -%}

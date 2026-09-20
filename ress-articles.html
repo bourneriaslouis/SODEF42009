@@ -1,0 +1,50 @@
+---
+layout: ress
+title: "Articles"
+description: "Articles publiés par la Revue d’Études Stratégiques de la Sorbonne (RESS)."
+nav: ress
+ress_rubrique: articles
+---
+{%- assign articles = site.ress_articles | sort: "date" | reverse -%}
+{%- assign exemples = articles | where: "exemple", true -%}
+<section class="ouverture-ress">
+  <div class="enveloppe">
+    <p class="surtitre">La revue</p>
+    <h1>Articles</h1>
+    <p class="chapeau">Travaux publiés par la RESS, par numéro ou hors numéro.</p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="enveloppe pile--large">
+    {%- if exemples.size > 0 %}
+    <p class="avertissement"><strong>Contenus provisoires.</strong> Les articles marqués « exemple » sont à remplacer ou supprimer depuis l’interface de rédaction.</p>
+    {%- endif %}
+    <div class="filtres-ress" data-liste="articles">
+      <div class="groupe-filtre" role="group" aria-label="Filtrer par rubrique">
+        <button class="filtre-ress" type="button" data-cle="rubrique" data-valeur="toutes" aria-pressed="true">Toutes les rubriques</button>
+        {%- for r in site.data.ress_rubriques.rubriques %}
+        <button class="filtre-ress" type="button" data-cle="rubrique" data-valeur="{{ r.id }}" aria-pressed="false">{{ r.nom }}</button>
+        {%- endfor %}
+      </div>
+      <label class="choix-numero">Numéro
+        <select data-cle="numero">
+          <option value="tous">Tous</option>
+          {%- for n in site.data.ress_numeros.numeros %}
+          <option value="{{ n.id }}">N° {{ n.romain }}</option>
+          {%- endfor %}
+          <option value="hors">Hors numéro</option>
+        </select>
+      </label>
+      <p class="compte-ress" aria-live="polite">{{ articles.size }} article{% if articles.size > 1 %}s{% endif %}</p>
+    </div>
+    <div class="liste-articles" data-elements>
+    {%- for a in articles %}
+      {% include ress-carte-article.html article=a resume="oui" %}
+    {%- else %}
+      <p>Aucun article publié pour l’instant.</p>
+    {%- endfor %}
+    </div>
+    <p class="aucun-resultat" hidden>Aucun article ne correspond à ce choix.</p>
+  </div>
+</section>

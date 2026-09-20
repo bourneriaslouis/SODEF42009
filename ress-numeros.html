@@ -1,0 +1,46 @@
+---
+layout: ress
+title: "Numéros papier"
+description: "Sommaire des numéros papier de la Revue d’Études Stratégiques de la Sorbonne (RESS)."
+nav: ress
+ress_rubrique: numeros
+---
+{%- assign articles = site.ress_articles | sort: "date" | reverse -%}
+<section class="ouverture-ress">
+  <div class="enveloppe">
+    <p class="surtitre">Sommaire</p>
+    <h1>Numéros papier</h1>
+    <p class="chapeau">Les numéros imprimés de la revue, du plus récent au plus ancien, avec leurs articles en ligne et, lorsqu’elle existe, la version PDF du numéro complet.</p>
+  </div>
+</section>
+
+<section class="section" id="numeros">
+  <div class="enveloppe colonne pile--large">
+    <ol class="sommaire">
+    {%- assign numeros = site.data.ress_numeros.numeros | reverse -%}
+    {%- for n in numeros %}
+      {%- assign arts = articles | where: "numero", n.id | sort: "ordre" %}
+      <li class="revele" id="numero-{{ n.id }}">
+        <span class="n">N° {{ n.romain }}</span>
+        <div class="pile-serree">
+          <h2 class="titre-numero">{% if n.titre != "" %}{{ n.titre }}{% elsif n.parution %}<mark class="a-completer">[À compléter : titre du numéro]</mark>{% else %}À paraître{% endif %}</h2>
+          <p class="meta">{% if n.date_parution != "" %}{% if n.parution %}Paru le{% else %}Parution prévue le{% endif %} {% include date-fr.html date=n.date_parution %}{% else %}<mark class="a-completer">[À compléter : date{% unless n.parution %} prévue{% endunless %}]</mark>{% endif %}</p>
+          {%- if arts.size > 0 %}
+          <ul class="articles-numero">
+          {%- for a in arts %}
+            <li><a href="{{ a.url | relative_url }}">{{ a.title }}</a> <span class="auteurs">— {% include ress-auteurs.html auteurs=a.auteurs %}</span></li>
+          {%- endfor %}
+          </ul>
+          {%- endif %}
+        </div>
+        <span class="acces">{% if n.pdf != "" %}<a href="{{ n.pdf | relative_url }}" download>Numéro complet (PDF)</a>{% endif %}</span>
+      </li>
+    {%- endfor %}
+    </ol>
+    {%- assign nb_hors = 0 %}
+    {%- for a in articles %}{% assign num_a = site.data.ress_numeros.numeros | where: "id", a.numero | first %}{% unless num_a %}{% assign nb_hors = nb_hors | plus: 1 %}{% endunless %}{% endfor %}
+    {%- if nb_hors > 0 %}
+    <p class="hors-numero revele">Articles publiés en ligne hors numéro : <a href="{{ '/ress-articles.html' | relative_url }}?numero=hors">{{ nb_hors }} article{% if nb_hors > 1 %}s{% endif %}</a>.</p>
+    {%- endif %}
+  </div>
+</section>

@@ -1,0 +1,51 @@
+---
+layout: ress
+---
+{%- assign rub = site.data.ress_rubriques.rubriques | where: "id", page.rubrique | first -%}
+{%- assign num = site.data.ress_numeros.numeros | where: "id", page.numero | first -%}
+<article class="article-ress">
+<header class="ouverture-article">
+  <div class="enveloppe">
+    <p class="surtitre"><a href="{{ '/ress-articles.html' | relative_url }}">Articles</a>{% if rub %} · {{ rub.nom }}{% endif %}</p>
+    <h1 class="titre-article">{{ page.title }}</h1>
+    {%- if page.auteurs and page.auteurs.size > 0 %}
+    <p class="auteurs-article">{% include ress-auteurs.html auteurs=page.auteurs qualite="oui" %}</p>
+    {%- endif %}
+    <p class="meta-ress">
+      <span class="numero-ress">{% if num %}<a href="{{ '/ress-numeros.html' | relative_url }}#numero-{{ num.id }}">N° {{ num.romain }}</a>{% else %}Hors numéro{% endif %}</span>
+      <span>Publié le <time datetime="{{ page.date | date: '%Y-%m-%d' }}">{% include date-fr.html date=page.date %}</time></span>
+    </p>
+  </div>
+</header>
+
+<div class="section corps-article">
+  <div class="enveloppe article-actu">
+    {%- if page.exemple %}
+    <p class="avertissement"><strong>Contenu provisoire.</strong> Article d’exemple, à remplacer ou supprimer depuis l’interface de rédaction.</p>
+    {%- endif %}
+    {%- if page.resume and page.resume != "" %}
+    <div class="resume-article">
+      <p class="surtitre">Résumé</p>
+      <p>{{ page.resume }}</p>
+      {%- if page.mots_cles and page.mots_cles.size > 0 %}
+      <p class="mots-cles"><span class="surtitre">Mots-clés</span> {{ page.mots_cles | join: " · " }}</p>
+      {%- endif %}
+    </div>
+    {%- endif %}
+    {%- if page.image and page.image != "" %}
+    <figure class="illustration"><img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | escape }}"></figure>
+    {%- endif %}
+    <div class="prose">
+{{ content }}
+    </div>
+    {%- if page.pdf and page.pdf != "" %}
+    <p class="actions"><a class="bouton bouton--document" href="{{ page.pdf | relative_url }}" download>Télécharger l’article (PDF)</a></p>
+    {%- endif %}
+    <div class="citer">
+      <p class="surtitre">Citer cet article</p>
+      <p>{% for au in page.auteurs %}{% unless forloop.first %}{% if forloop.last %} et {% else %}, {% endif %}{% endunless %}{{ au.nom }}{% endfor %}, « {{ page.title }} », <cite>Revue d’Études Stratégiques de la Sorbonne</cite>, {% if num %}n° {{ num.romain }}{% else %}hors numéro{% endif %}, {% include date-fr.html date=page.date %}, {{ page.url | absolute_url }}.</p>
+    </div>
+    <p class="retour"><a class="lien-retour" href="{{ '/ress-articles.html' | relative_url }}">Tous les articles</a></p>
+  </div>
+</div>
+</article>
