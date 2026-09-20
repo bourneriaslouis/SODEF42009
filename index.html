@@ -95,11 +95,19 @@ nav: accueil
   </div>
 </section>
 
-<section class="section" id="agenda"{% if evenements.size == 0 %} hidden{% endif %}>
+<section class="section">
   <div class="enveloppe pile--large">
     <div class="pile revele">
       <p class="surtitre">Agenda</p>
       <h2>Prochains rendez-vous</h2>
+    </div>
+    <ol class="agenda">
+      {%- assign agenda_data = site.data.agenda -%}
+{%- if agenda_data and agenda_data.evenements -%}
+{%- assign evenements = agenda_data.evenements | sort: "date" -%}
+{%- else -%}
+{%- assign evenements = "" | split: "," -%}
+{%- endif -%}
     </div>
     <ol class="agenda" data-agenda data-agenda-max="4">
     {%- assign mois_court = "janv.,févr.,mars,avril,mai,juin,juill.,août,sept.,oct.,nov.,déc." | split: "," %}
