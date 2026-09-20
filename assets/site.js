@@ -20,6 +20,23 @@
     });
   }
 
+    /* Accueil : agenda — masque les rendez-vous passés et limite le nombre affiché */
+  var agenda = document.querySelector('.agenda[data-agenda]');
+  if (agenda) {
+    var aujourdhui = new Date(); aujourdhui.setHours(0, 0, 0, 0);
+    var maxAgenda = parseInt(agenda.getAttribute('data-agenda-max'), 10) || 0;
+    var visibles = 0;
+    Array.prototype.forEach.call(agenda.children, function (li) {
+      var d = li.getAttribute('data-date');
+      var ok = !d || new Date(d + 'T23:59:59') >= aujourdhui;
+      if (ok && maxAgenda && visibles >= maxAgenda) ok = false;
+      li.hidden = !ok;
+      if (ok) visibles++;
+    });
+    var sectionAgenda = agenda.closest('#agenda');
+    if (sectionAgenda && visibles === 0) sectionAgenda.hidden = true;
+  }
+  
   /* Apparition au défilement : seuls les blocs situés sous la ligne de flottaison sont concernés */
   if (!calme && 'IntersectionObserver' in window) {
     var hauteur = window.innerHeight;
