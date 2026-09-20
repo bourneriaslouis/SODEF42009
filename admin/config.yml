@@ -1,13 +1,13 @@
 # Interface de rédaction Sorbonne Défense (Decap CMS)
 # ----------------------------------------------------------------------------
-# BLOC « backend » CI-DESSOUS : à remplacer par celui que fournit DecapBridge
 # (tableau de bord DecapBridge > votre site > config.yml). Ne rien modifier d'autre.
 backend:
   name: git-gateway
-  repo: A-REMPLACER/A-REMPLACER          # compte-github/nom-du-depot
+  repo: bourneriaslouis/SODEF42009
   branch: main
-  identity_url: A-REMPLACER              # fourni par DecapBridge
-  gateway_url: A-REMPLACER               # fourni par DecapBridge
+  identity_url: https://auth.decapbridge.com/sites/77214cf6-0c8e-465c-9b7c-2eef8ae3482a
+  gateway_url: https://gateway.decapbridge.com
+
 # ----------------------------------------------------------------------------
 
 locale: fr
