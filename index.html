@@ -102,12 +102,34 @@ nav: accueil
       <h2>Prochains rendez-vous</h2>
     </div>
     <ol class="agenda">
-      <li class="revele"><p class="date"><span class="jour"><mark class="a-completer">[jj]</mark></span><span class="mois">mois</span></p><div><h3><mark class="a-completer">[À compléter : intitulé]</mark></h3><p><mark class="a-completer">[À compléter : intervenants, lieu, horaire]</mark></p></div></li>
-      <li class="revele"><p class="date"><span class="jour"><mark class="a-completer">[jj]</mark></span><span class="mois">mois</span></p><div><h3><mark class="a-completer">[À compléter : intitulé]</mark></h3><p><mark class="a-completer">[À compléter : intervenants, lieu, horaire]</mark></p></div></li>
+      {%- assign agenda_data = site.data.agenda -%}
+{%- if agenda_data and agenda_data.evenements -%}
+{%- assign evenements = agenda_data.evenements | sort: "date" -%}
+{%- else -%}
+{%- assign evenements = "" | split: "," -%}
+{%- endif -%}
+<section class="section" id="agenda"{% if evenements.size == 0 %} hidden{% endif %}>
+  <div class="enveloppe pile--large">
+    <div class="pile revele">
+      <p class="surtitre">Agenda</p>
+      <h2>Prochains rendez-vous</h2>
+    </div>
+    <ol class="agenda" data-agenda data-agenda-max="4">
+    {%- assign mois_court = "janv.,févr.,mars,avril,mai,juin,juill.,août,sept.,oct.,nov.,déc." | split: "," %}
+    {%- for e in evenements %}
+      {%- assign m = e.date | date: "%-m" | minus: 1 %}
+      <li class="revele" data-date="{{ e.date | date: '%Y-%m-%d' }}">
+        <p class="date"><span class="jour">{{ e.date | date: "%-d" }}</span><span class="mois">{{ mois_court[m] }}</span></p>
+        <div>
+          <h3>{% if e.lien and e.lien != "" %}<a href="{{ e.lien | relative_url }}">{{ e.titre }}</a>{% else %}{{ e.titre }}{% endif %}</h3>
+          {%- if e.detail and e.detail != "" %}<p>{{ e.detail }}</p>{% endif %}
+        </div>
+      </li>
+    {%- endfor %}
     </ol>
   </div>
 </section>
-
+  
 <section class="section section--voile">
   <div class="enveloppe tete-section revele">
     <div class="pile colonne">
